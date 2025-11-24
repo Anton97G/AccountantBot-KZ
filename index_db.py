@@ -1,12 +1,10 @@
 import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
-# Стало:
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
-# --- Настройки ---
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -66,7 +64,7 @@ def create_vector_db():
 
     print("\n✅ Индексация завершена!")
     print(f"   Векторная база данных сохранена в папке: {DB_FAISS_PATH}")
-    print("   Теперь можно использовать ее в основном боте (Шаг 4).")
+
 
 
 if __name__ == "__main__":

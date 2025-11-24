@@ -8,7 +8,7 @@ from openai import OpenAI
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 from telegram.constants import ChatAction
-import json  # Добавляем для работы с JSON-полями в БД
+import json
 
 # --- Настройки и инициализация ---
 
@@ -38,7 +38,7 @@ if not OPENAI_API_KEY or not TG:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # --- Системный промпт для LLM (Бухгалтер для Казахстана) ---
-# Обновлен для работы с данными компании из БД
+
 SYSTEM_PROMPT = (
     "Ты — высококвалифицированный консультант по бухгалтерскому и налоговому учету в Республике Казахстан (РК). "
     "Твоя основная функция — служить интеллектуальным ядром Telegram-бота-бухгалтера, который будет помогать "
@@ -78,7 +78,7 @@ print("RAG-компоненты загружены.")
 db = sqlite3.connect(DB_PATH, check_same_thread=False)
 db.row_factory = sqlite3.Row  # Позволяет получать результат в виде словаря
 
-# Создание таблицы истории сообщений (без изменений)
+# Создание таблицы истории сообщений
 db.execute("""CREATE TABLE IF NOT EXISTS m(
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     user_id INTEGER, 
@@ -253,7 +253,7 @@ async def reply_text(u: Update, c: ContextTypes.DEFAULT_TYPE):
     add(uid, "user", text)
 
     try:
-        # --- НОВЫЙ RAG-ПАЙПЛАЙН ---
+        # --- RAG-ПАЙПЛАЙН ---
 
         # 1. Поиск релевантных документов в Налоговом кодексе
         retrieved_docs = retriever.invoke(text)
@@ -294,9 +294,9 @@ async def reply_text(u: Update, c: ContextTypes.DEFAULT_TYPE):
 
         ans = (r.choices[0].message.content or "").strip()
 
-        # --- КОНЕЦ НОВОГО RAG-ПАЙПЛАЙНА ---
+        # --- КОНЕЦ RAG-ПАЙПЛАЙНА ---
 
-        # 7. НОВЫЙ ШАГ: Парсинг и обновление контекста
+        # Парсинг и обновление контекста
 
         # Ищем специальную метку для обновления контекста в конце ответа
         update_tag = None
