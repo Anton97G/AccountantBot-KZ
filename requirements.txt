@@ -1,0 +1,10 @@
+python-telegram-bot
+openai
+python-dotenv
+langchain
+langchain-openai
+langchain-community
+langchain-text-splitters
+faiss-cpu
+pypdf
+psycopg2-binary
