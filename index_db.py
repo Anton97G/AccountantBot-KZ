@@ -14,7 +14,7 @@ if not OPENAI_API_KEY:
 # Файл с Налоговым Кодексом РК
 PDF_PATH = "nk_rk_2025.pdf"
 # Имя файла для сохранения векторной базы данных
-DB_FAISS_PATH = "faiss_vector_db"
+DB_FAISS_PATH = "/app/faiss_vector_db"
 
 # --- Параметры разбиения текста ---
 # Размер одного фрагмента (чанка)
